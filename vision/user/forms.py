@@ -49,4 +49,26 @@ class registro_form(forms.ModelForm):
         if primer_nombre and segundo_nombre and primer_nombre == segundo_nombre:
             raise ValidationError("El primer y segundo nombre no pueden ser iguales.")
         
+        
         return cleaned_data
+    
+class iniciar_form(forms.ModelForm):
+
+    class Meta:
+        model = Usuario
+        
+        fields =[
+            "nombre_usuario",
+            "contraseña",
+        ]
+        
+        labels ={
+            'nombre_usuario': 'Nombre Usuario',
+            'contraseña': 'Contraseña',
+        }
+
+        widgets  ={
+            'nombre_usuario': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre de usuario'}),
+            'contraseña': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña', 'required': True, 'max_length': 30, 'render_value': False}),
+        }
+
