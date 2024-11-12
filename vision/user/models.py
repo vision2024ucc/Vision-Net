@@ -5,7 +5,7 @@ class Usuario (models.Model):
     segundo_nombre = models.CharField(max_length=200)
     nombre_usuario = models.CharField(max_length=200)
     emial = models.EmailField()
-    contraseña = models.CharField(widget=models.PasswordInput)
+    contraseña = models.CharField(max_length=200)
 
     def __str__(self):
         return self.primer_nombre 
