@@ -1,6 +1,6 @@
 from django import forms
 from django.core.exceptions import ValidationError
-from .models import Usuario
+from .models import Usuario,Publicacion
 
 class registro_form(forms.ModelForm):
     class Meta:
@@ -72,3 +72,21 @@ class iniciar_form(forms.ModelForm):
             'contraseña': forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Contraseña', 'required': True, 'max_length': 30, 'render_value': False}),
         }
 
+class publicacion_form(forms.ModelForm):
+    class Meta:
+        model = Publicacion
+        fields = [
+            "titulo",
+            "descripcion",
+            "archivo",
+        ]
+        labels = {
+            'titulo': 'Título de la publicación',
+            'descripcion': 'Descripción de la publicación',
+            'archivo': 'Sube cualquier tipo de archivo (opcional)',
+        }
+        widgets = {
+            'titulo': forms.TextInput(attrs={'class': 'form-control'}),
+            'descripcion': forms.TextInput(attrs={'class': 'form-control'}),
+            'archivo': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }

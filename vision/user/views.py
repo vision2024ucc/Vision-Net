@@ -1,14 +1,16 @@
 from django.shortcuts import render,HttpResponseRedirect,get_object_or_404
-from .forms import registro_form
+from .forms import registro_form,publicacion_form,iniciar_form
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
-from .forms import iniciar_form
+from django.shortcuts import render, redirect
+from .forms import registro_form,iniciar_form
+from .models import Publicacion
+
 
 def Incio (request):
     return render(request,'base.html')
 
-from django.shortcuts import render, redirect
-from .forms import registro_form, iniciar_form
+
 
 def Registro(request):
     if request.method == 'POST':
@@ -48,11 +50,24 @@ def iniciar_seccion(request):
     
     return render(request, 'iniciar.html', {'form': form})
 
-        
+
+def crear_publicacion(request):
+    if request.method == 'POST':
+        form = publicacion_form(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('lista_publicaciones.html')  # Cambiar por tu vista de lista
+    else:
+        form = publicacion_form()
+    return render(request, 'crear_publicacion.html', {'form': form})
 
 
 
+def ver_publicaciones(request):
+    publicaciones = Publicacion.objects.all()  # Consulta al modelo, no al formulario
+    return render(request, 'lista_publicaciones.html', {'publicaciones': publicaciones})
 
-    
+
+
 
 
